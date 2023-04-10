@@ -35,7 +35,7 @@ cat = intake.open_esm_datastore(url)
 cat_subset = cat.search(
     experiment=["CTRL","20C","HIST", "RCP85"],
     #TODO: Add other variables here
-    long_name=["maximum reference height temperature over output period", 'minimum reference height temperature over output period'], 
+    long_name=['total (convective and large-scale) precipitation rate (liq + ice)'], 
 )
 dset_dict = cat_subset.to_dataset_dict(zarr_kwargs={"consolidated": True}, storage_options={"anon": True})
 ```
@@ -52,7 +52,7 @@ unique = cat.unique()
 
 ```python
 ds_RCP = dset_dict["atm.RCP85.daily"]
-ds_CTRL = dset_dict["atm.CTRL.daily"]
+ds_CTRL = dset_dict["atm.20C.daily"]
 
 
 # Select Just at Vancouver's coordinates
@@ -75,10 +75,8 @@ First, we will look at the distribution max temps in the past climate TODO: Defi
 # save datasets to be usable
 import matplotlib.pyplot as plt
 #control = ds_CTRL.TREFHTMX[0, :].to_numpy()
-ds_CTRL.TREFHTMX.to_dataframe().to_csv('data/ctrl_max.csv')
-ds_CTRL.TREFHTMN.to_dataframe().to_csv('data/ctrl_min.csv')
-ds_RCP.TREFHTMX.to_dataframe().to_csv('data/rcp_max.csv')
-ds_RCP.TREFHTMN.to_dataframe().to_csv('data/rcp_min.csv')
+ds_CTRL.PRECT.to_dataframe().to_csv('data/20c_precip.csv')
+ds_RCP.PRECT.to_dataframe().to_csv('data/rcp_precip.csv')
 ```
 
 Based on that, we need to define what we mean by an "extreme event"
