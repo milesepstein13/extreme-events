@@ -47,7 +47,10 @@ cat_subset.df.tail()
 
 ```python
 unique = cat.unique()
-#unique['long_name']
+unique
+unique['long_name']
+unique['units']
+cat
 ```
 
 ```python
@@ -58,7 +61,7 @@ ds_CTRL = dset_dict["atm.20C.daily"]
 # Select Just at Vancouver's coordinates
 
 # just NE of Vancouver (to ensure we're over land)
-van_lon = 236.5
+van_lon = 236.9
 van_lat = 49.3
 ds_RCP = ds_RCP.sel(lat = van_lat, lon = van_lon, method='nearest')
 ds_RCP
